@@ -7,10 +7,14 @@ server:
 # 缓存关闭（即每次渲染都会去重新请求服务器）
 spring:
   thymeleaf:
+    # 缓存关闭，即每次请求都会请求服务端
     cache: false
+    # 模板所在位置
     prefix: classpath:/templates/
+    # 模板后缀
     suffix: .html
     encoding: UTF-8
     mode: HTML5
+    # 注意这个配置，springboot 2.0 比 1.4 多了一个 servlet
     servlet:
       content-type: text/html
