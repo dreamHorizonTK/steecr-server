@@ -1,0 +1,16 @@
+server:
+  port: 7777
+
+
+############### thymeleaf 配置 ###############
+# 推荐配置项
+# 缓存关闭（即每次渲染都会去重新请求服务器）
+spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    mode: HTML5
+    servlet:
+      content-type: text/html
