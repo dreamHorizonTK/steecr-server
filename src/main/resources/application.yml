@@ -18,3 +18,9 @@ spring:
     # 注意这个配置，springboot 2.0 比 1.4 多了一个 servlet
     servlet:
       content-type: text/html
+
+
+############### log 配置 ###############
+logging:
+  config: classpath:log4j2.xml
+#  path: D://logs

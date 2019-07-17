@@ -30,6 +30,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <!-- 此处排除的其实就是 springboot 默认的日志框架：logback -->
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -47,11 +54,35 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <!-- log4j2 对比 logback，性能更优越，唯一的遗憾就是不能自动删除日志，但是我们可以通过 shell 脚本来实现该功能 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+        <!-- Log4j2 异步支持，官方强烈建议哦，但是对于本地日志，反而更消耗性能 -->
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+            <version>3.3.6</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/us.codecraft/webmagic-core -->
         <!--<dependency>
             <groupId>us.codecraft</groupId>
             <artifactId>webmagic-core</artifactId>
             <version>0.7.3</version>
+            <exclusions>
+                &lt;!&ndash; 排除掉 slf4j 是因为 log4j2 是没有 slf4j 的桥接的，所以就用不到 slf4j 这个标准接口了 &ndash;&gt;
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                &lt;!&ndash; 排除掉 slf4j-log4j12 是因为它其实是 log4j，但是我此处想用性能更高的 log4j2，毕竟 log4j 已经老了，被淘汰了 &ndash;&gt;
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>us.codecraft</groupId>
