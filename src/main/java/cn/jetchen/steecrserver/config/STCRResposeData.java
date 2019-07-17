@@ -1,6 +1,6 @@
 package cn.jetchen.steecrserver.config;
 
-import cn.jetchen.steecrserver.STCRTimeUtils;
+import cn.jetchen.steecrserver.utils.STCRTimeUtils;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 

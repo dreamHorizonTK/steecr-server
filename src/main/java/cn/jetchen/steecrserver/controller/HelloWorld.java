@@ -1,9 +1,11 @@
 package cn.jetchen.steecrserver.controller;
 
+import cn.jetchen.steecrserver.config.STCRResposeData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -23,6 +25,12 @@ public class HelloWorld {
     public String helloWorld(){
         LOGGER.info("hello, {}", "jet");
         return "STRC";
+    }
+
+    @GetMapping("/helloworld2")
+    public STCRResposeData helloWorld2(@RequestParam(value = "test", required = true)String test){
+        LOGGER.info("hello, {}, param: {}", "jet", test);
+        return new STCRResposeData();
     }
 
     @GetMapping("/testError")

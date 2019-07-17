@@ -1,4 +1,4 @@
-package cn.jetchen.steecrserver;
+package cn.jetchen.steecrserver.utils;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;

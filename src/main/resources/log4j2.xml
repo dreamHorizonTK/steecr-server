@@ -18,14 +18,14 @@
             <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
             <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
             <!-- 输出日志的格式 -->
-            <PatternLayout pattern="%clr{%d{yyyy-MM-dd HH:mm:ss.SSS}}{faint} %clr{%5p} %clr{${sys:PID}}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m%n%xwEx"/>
+            <PatternLayout pattern="%clr{[%X{trade_id}]} %clr{%d{yyyy-MM-dd HH:mm:ss.SSS}}{faint} %clr{%5p} %clr{${sys:PID}}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m%n%xwEx"/>
         </Console>
 
         <!-- 打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档 -->
         <!-- filePattern 日志回滚的文件命名规则 -->
         <RollingRandomAccessFile name="infoFile" fileName="${filePath}/service-info.log" immediateFlush="false"
                                  filePattern="${filePath}/bak/service-info_%d{yyyy-MM-dd}_%i.log.gz" >
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n"/>
+            <PatternLayout pattern="[%X{trade_id}] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n"/>
 
             <Policies>
                 <SizeBasedTriggeringPolicy size="20 MB"/>
@@ -53,7 +53,7 @@
         <!-- 存储所有error信息 -->
         <RollingRandomAccessFile name="errorFile" fileName="${filePath}/service-error.log" immediateFlush="false"
                                  filePattern="${filePath}/bak/service-error_%d{yyyy-MM-dd}_%i.log.gz">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n"/>
+            <PatternLayout pattern="[%X{trade_id}] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n"/>
 
             <Policies>
                 <SizeBasedTriggeringPolicy size="50 MB"/>
