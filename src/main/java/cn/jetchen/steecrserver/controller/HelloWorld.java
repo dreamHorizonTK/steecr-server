@@ -1,8 +1,7 @@
 package cn.jetchen.steecrserver.controller;
 
 import cn.jetchen.steecrserver.config.STCRResposeData;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,19 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 @RequestMapping
+@Slf4j
 public class HelloWorld {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HelloWorld.class);
 
     @GetMapping("/helloworld")
     public String helloWorld(){
-        LOGGER.info("hello, {}", "jet");
+        log.info("hello, {}", "jet");
         return "STRC";
     }
 
     @GetMapping("/helloworld2")
     public STCRResposeData helloWorld2(@RequestParam(value = "test", required = true)String test){
-        LOGGER.info("hello, {}, param: {}", "jet", test);
+        log.info("hello, {}, param: {}", "jet", test);
         return new STCRResposeData();
     }
 
@@ -38,7 +37,7 @@ public class HelloWorld {
         try {
             int a = 1 / 0;
         } catch (Exception e) {
-            LOGGER.error("error log test, {}", "error param", e);
+            log.error("error log test, {}", "error param", e);
         }
         int a = 1 / 0;
 

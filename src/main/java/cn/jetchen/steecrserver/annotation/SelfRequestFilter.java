@@ -1,8 +1,9 @@
 package cn.jetchen.steecrserver.annotation;
 
 import cn.jetchen.steecrserver.utils.NetUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
@@ -22,9 +23,10 @@ import java.util.*;
  * @Date: 2019/1/31 17:03
  * @Version: 1.0
  **/
+@Slf4j
 public class SelfRequestFilter implements Filter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SelfRequestFilter.class);
+//    private static final Logger LOGGER = LoggerFactory.getLogger(SelfRequestFilter.class);
 
     public static final String SPLIT_STRING_M = "=";
 
@@ -68,7 +70,7 @@ public class SelfRequestFilter implements Filter {
             // TODO 数据脱敏处理
             String urlParams = getRequestParams(req);
             String requestBodyStr = getRequestBody(wrapperRequest);
-            LOGGER.info("==============>> request, ip: {}, URI: {}, URIParams: {}, bodyParams: {}", httpIp, requestURI, urlParams, requestBodyStr);
+            log.info("==============>> request, ip: {}, URI: {}, URIParams: {}, bodyParams: {}", httpIp, requestURI, urlParams, requestBodyStr);
 
         }
         // TODO 查询ip是否被加入黑名单
@@ -81,7 +83,7 @@ public class SelfRequestFilter implements Filter {
 
         if (printHandleTime) {
             String responseBodyStr = getResponseBody(wrapperResponse);
-            LOGGER.info("==============>> response, status: {}, body: {}", wrapperResponse.getStatusCode(), responseBodyStr);
+            log.info("==============>> response, status: {}, body: {}", wrapperResponse.getStatusCode(), responseBodyStr);
         }
 
         // request 的inputStream和response 的outputStream默认情况下是只能读一次， 不可重复读
