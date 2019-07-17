@@ -29,7 +29,7 @@ public class HelloWorld {
     @GetMapping("/helloworld2")
     public STCRResposeData helloWorld2(@RequestParam(value = "test", required = true)String test){
         log.info("hello, {}, param: {}", "jet", test);
-        return new STCRResposeData();
+        return STCRResposeData.initSuccess(null, null, null);
     }
 
     @GetMapping("/testError")

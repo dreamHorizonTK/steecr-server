@@ -12,11 +12,11 @@ import java.util.Map;
  * @Description: 自定义标准的请求返回值
  * 数据结构为：
  * {
- *     "successFlag": 1,                        // 标识是否成功，1：成功，0：失败
+ *     "code": 1,                               // 请求状态码，标识是否成功，1：成功，0：失败
  *     "msg": "test",                           // 错误提示，可能为空
  *     "result": {                              // 结果集
- *         "requestTime": "2019-7-17 14:09:00", // 请求时间
- *         "code": "1201",                      // 请求状态码，
+ *         "timeStamp": "2019-7-17 14:09:00",   // 请求时间
+ *         "bizId": "1201",                     // 业务状态码，
  *         "data": {} 或 []                     // 返回的数据集，有可能是 list，有可能是 map
  *     }
  * }
@@ -29,24 +29,28 @@ public class STCRResposeData {
 
     private String msg;
 
-    private byte successFlag = 1;
+    private byte code = 1;
 
     private Map<String, Object> result = new HashMap<>(){{
-        put("code", "1201");
+        put("bizId", "1201");
         put("data", null);
     }};
 
-    public STCRResposeData(){
-        result.put("requestTime", STCRTimeUtils.formateDateTime(null));
+    private STCRResposeData(){
+        result.put("timeStamp", STCRTimeUtils.formateDateTime(null));
     }
 
-    public STCRResposeData(Byte successFlag, String code, String errorMsg, Object data){
-        result.put("requestTime", STCRTimeUtils.formateDateTime(null));
-        if(StringUtils.isNotBlank(errorMsg)) this.msg = errorMsg;
-        if(StringUtils.isNotBlank(code)) result.put("code", code);
-        if (successFlag != null) {
-            if (1 != successFlag) this.successFlag = 0;
-        }
-        if (data != null) result.put("data", data);
+    public static STCRResposeData initSuccess(String bizId, String msg, Object data){
+        STCRResposeData stcrResposeData = new STCRResposeData();
+        if(StringUtils.isNotBlank(msg)) stcrResposeData.setMsg(msg);
+        if(StringUtils.isNotBlank(bizId)) stcrResposeData.getResult().put("bizId", bizId);
+        if (data != null) stcrResposeData.getResult().put("data", data);
+        return stcrResposeData;
+    }
+
+    public static STCRResposeData initError(String bizId, String msg, Object data){
+        STCRResposeData stcrResposeData = initSuccess(bizId, msg, data);
+        stcrResposeData.setCode((byte) 0);
+        return stcrResposeData;
     }
 }
