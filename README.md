@@ -4,6 +4,11 @@
 ## 环境搭建
 1. jdk 11.x
 
+## 配置修改
+1. 修改日志输出地址
+
+修改 **resources/log4j2.xml** 配置文件第10行 ```<Property name="filePath">D://logs</Property>```
+
 ## 项目打包
 mvn clean package -Dmaven.test.skip=true
 
