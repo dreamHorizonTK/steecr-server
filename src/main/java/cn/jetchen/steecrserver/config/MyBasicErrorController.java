@@ -47,9 +47,10 @@ public class MyBasicErrorController extends BasicErrorController {
 
 
     /**
-     * @Description: 定义500的错误JSON信息  
+     * @Description: 定义500 和 404 的错误JSON信息  
     * @Param: [request]
      * @return: org.springframework.http.ResponseEntity<cn.jetchen.steecrserver.config.STCRResposeData>  
+    * STCRResposeData 为全局统一的接口数据结构
     * @Author: Jet.Chen
      * @Date: 2019-07-17 23:13 
     */
@@ -59,16 +60,20 @@ public class MyBasicErrorController extends BasicErrorController {
         Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
         HttpStatus status = getStatus(request);
         Object messageTemp;
-        return new ResponseEntity<>(STCRResposeData.initError( String.format("%d%d", 1, status.value()), (messageTemp = body.get("error")) == null ? null : messageTemp.toString(),
-                new HashMap<String, Object>(){{
+        // stcrResposeData 为返回的数据
+        STCRResposeData stcrResposeData = STCRResposeData.initError(
+                String.format("%d%d", 1, status.value()),
+                (messageTemp = body.get("error")) == null ? null : messageTemp.toString(),
+                new HashMap<String, Object>() {{
                     put("error", body.get("error"));
                     put("message", body.get("message"));
-                }}), status);
+                }});
+        return new ResponseEntity<>(stcrResposeData, status);
     }
 
 
     /**
-     * @Description: 定义500的ModelAndView  
+     * @Description: 定义404的ModelAndView  
     * @Param: [request, response]
      * @return: org.springframework.web.servlet.ModelAndView  
     * @Author: Jet.Chen
