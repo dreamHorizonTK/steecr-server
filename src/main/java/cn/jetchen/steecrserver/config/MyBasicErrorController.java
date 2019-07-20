@@ -47,23 +47,31 @@ public class MyBasicErrorController extends BasicErrorController {
 
 
     /**
-     * @Description: 定义500 和 404 的错误JSON信息  
+     * @Description: 定义500、400、404 的错误JSON信息  
     * @Param: [request]
      * @return: org.springframework.http.ResponseEntity<cn.jetchen.steecrserver.config.STCRResposeData>  
     * STCRResposeData 为全局统一的接口数据结构
     * @Author: Jet.Chen
      * @Date: 2019-07-17 23:13 
     */
-    @RequestMapping(value = {"/500", "/404"})
+    @RequestMapping(value = {"/500", "/400", "/404"})
     @ResponseBody
     public ResponseEntity<STCRResposeData> error500(HttpServletRequest request) {
         Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
         HttpStatus status = getStatus(request);
         Object messageTemp;
         // stcrResposeData 为返回的数据
+        String msg = null;
+        if (body.get("error") != null && body.get("message") != null) {
+            msg = String.format("%s, %s", body.get("error"), body.get("message"));
+        } else if (body.get("error") != null) {
+            msg = body.get("error").toString();
+        } else if (body.get("message") != null) {
+            msg = body.get("message").toString();
+        }
         STCRResposeData stcrResposeData = STCRResposeData.initError(
                 String.format("%d%d", 1, status.value()),
-                (messageTemp = body.get("error")) == null ? null : messageTemp.toString(),
+                msg,
                 new HashMap<String, Object>() {{
                     put("error", body.get("error"));
                     put("message", body.get("message"));
