@@ -83,7 +83,7 @@ public class SelfRequestFilter implements Filter {
 
         if (printHandleTime) {
             String responseBodyStr = getResponseBody(wrapperResponse);
-            log.info("==============>> response, status: {}, body: {}", wrapperResponse.getStatusCode(), responseBodyStr);
+            log.info("==============>> response,time:{}mm status: {}, body: {}", System.currentTimeMillis() - t, wrapperResponse.getStatusCode(), responseBodyStr);
         }
 
         // request 的inputStream和response 的outputStream默认情况下是只能读一次， 不可重复读
