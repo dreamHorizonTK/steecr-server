@@ -94,6 +94,35 @@
             <version>0.7.3</version>
         </dependency>
 
+        <!-- RestAssured 测试 -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <!-- 仅在测试阶段需要打包 -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>3.0.2</version>
+            <!-- 仅在测试阶段需要打包 -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>spring-mock-mvc</artifactId>
+            <version>3.0.6</version>
+            <!-- 仅在测试阶段需要打包 -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+            <!-- 仅在测试阶段需要打包 -->
+            <scope>test</scope>
+        </dependency>
+
+
         <!-- 接口doc -->
         <!--<dependency>
             <groupId>io.springfox</groupId>
