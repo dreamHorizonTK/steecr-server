@@ -1,6 +1,8 @@
 package cn.jetchen.steecrserver.controller;
 
 import cn.jetchen.steecrserver.pojo.STCRResposeData;
+import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
@@ -14,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -25,6 +26,7 @@ import java.util.Map;
  * @Version: 1.0
  **/
 @Controller
+@Slf4j
 public class MyBasicErrorController extends BasicErrorController {
 
     public MyBasicErrorController() {
@@ -60,24 +62,13 @@ public class MyBasicErrorController extends BasicErrorController {
     public ResponseEntity<STCRResposeData> error500(HttpServletRequest request) {
         Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
         HttpStatus status = getStatus(request);
-        Object messageTemp;
-        // stcrResposeData 为返回的数据
-        String msg = null;
-        if (body.get("error") != null && body.get("message") != null) {
-            msg = String.format("%s, %s", body.get("error"), body.get("message"));
-        } else if (body.get("error") != null) {
-            msg = body.get("error").toString();
-        } else if (body.get("message") != null) {
-            msg = body.get("message").toString();
-        }
-        STCRResposeData stcrResposeData = STCRResposeData.initError(
+        STCRResposeData stcrResposeData = STCRResposeData.error(
                 String.format("%d%d", 1, status.value()),
-                msg,
-                new HashMap<String, Object>() {{
-                    put("error", body.get("error"));
-                    put("message", body.get("message"));
-                }});
-        return new ResponseEntity<>(stcrResposeData, status);
+                body.get("error") == null ? "error" : body.get("error").toString(),
+                body.get("message") == null ? null : body.get("message").toString(),
+                null);
+        log.info(String.format("request error, body: %S", JSON.toJSONString(body)));
+        return ResponseEntity.ok().body(stcrResposeData);
     }
 
 

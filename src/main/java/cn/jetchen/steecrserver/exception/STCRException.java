@@ -15,22 +15,27 @@ public class STCRException extends RuntimeException {
     /**异常对应的返回码*/
     private String retCd = "1500";
 
-    /**异常对应的描述信息*/
-    private String msgDes;
+    /**异常对应的简要描述*/
+    private String msg;
+
+    /**异常对应的详细信息*/
+    private String desc;
 
     public STCRException() {
         super();
     }
 
-    public STCRException(String msgDes) {
-        super(msgDes);
-        this.msgDes = msgDes;
+    public STCRException(String msg, String desc) {
+        super(msg);
+        this.msg = msg;
+        this.desc = desc;
     }
 
-    public STCRException(String retCd, String msgDes) {
-        super();
+    public STCRException(String retCd, String msg, String desc) {
+        super(msg);
         this.retCd = retCd;
-        this.msgDes = msgDes;
+        this.msg = msg;
+        this.desc = desc;
     }
 
 }

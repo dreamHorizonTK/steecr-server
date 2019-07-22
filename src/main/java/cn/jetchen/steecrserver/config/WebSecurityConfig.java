@@ -40,12 +40,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     //所有静态资源都忽略权限控制
                     .antMatchers("/resources/**", "/**").permitAll()
+                    //.antMatchers("/admin/**").hasRole("ADMIN")
+                    //.antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
                     //任意请求角色必须为用户或者管理员
                     .anyRequest().authenticated()
 
-                .and()
+                .and().formLogin()
                     //配置表单登陆
-                    .formLogin()
                     //配置登陆页面路径并允许所有人访问登陆页面
                     .loginPage("/login").permitAll()
                     //登陆成功时的处理类
@@ -53,9 +54,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     // 登陆失败时跳转
                     .failureUrl("/loginError")
 
-                .and()
+                .and().logout()
                     //配置登出页面路径并允许所有人访问登陆页面
-                    .logout().logoutUrl("/logout").permitAll()
+                    .logoutUrl("/logout").logoutSuccessUrl("/index").permitAll()
 
                 .and()
                     .rememberMe()
