@@ -1,4 +1,4 @@
-package cn.jetchen.steecrserver.config;
+package cn.jetchen.steecrserver.pojo;
 
 import cn.jetchen.steecrserver.utils.STCRTimeUtils;
 import lombok.Data;

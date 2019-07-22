@@ -1,4 +1,4 @@
-package cn.jetchen.steecrserver.config;
+package cn.jetchen.steecrserver.exception;
 
 import lombok.Data;
 

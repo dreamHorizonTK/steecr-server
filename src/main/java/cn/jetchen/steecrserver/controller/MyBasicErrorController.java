@@ -1,5 +1,6 @@
-package cn.jetchen.steecrserver.config;
+package cn.jetchen.steecrserver.controller;
 
+import cn.jetchen.steecrserver.pojo.STCRResposeData;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
