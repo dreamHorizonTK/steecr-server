@@ -38,7 +38,7 @@ public class STCRResposeData<T> {
     }
 
     public static <T> STCRResposeData<T> error(@NonNull String bizId, @NonNull String msg, String desc, T data) {
-        return new STCRResposeData<>((byte)-1, bizId, msg, desc, data);
+        return new STCRResposeData<>((byte)0, bizId, msg, desc, data);
     }
 
     public static <T> STCRResposeData<T> error(@NonNull STCRException exception) {
